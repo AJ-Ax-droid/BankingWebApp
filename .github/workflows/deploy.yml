@@ -1,0 +1,30 @@
+name: Deploy Banking Web App to Github Pages
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: 
+        - main
+    # Allows you to run this workflow manually from the Actions tab
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18  # Specify the Node.js version you want to use
+
+        - name: Install dependencies
+          run: npm install
+
+        - name: Build the app
+          run: npm run build
+
+        - name: Deploy to GitHub Pages
+          uses: peaceiris/actions-gh-pages@v4
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./dist
