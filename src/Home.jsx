@@ -7,6 +7,8 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import { createTheme } from '@mui/material/styles';
@@ -25,22 +27,40 @@ import {
 } from '@toolpad/core/Account';
 
 import { DemoProvider } from '@toolpad/core/internal';
-
+import ViewBalance from './ViewBalance/ViewBalance';
+import MakeCreditTransaction from './MakeTransaction/MakeCreditTransaction';
+import MakeDebitTransaction from './MakeTransaction/MakeDebitTransaction';
+import ViewStatement from './ViewStatement/ViewStatement';
+import CustomerServices from './CustomerServices/CustomerServices';
+import AboutUs from './AboutUs/AboutUs';
+import { createRoot } from 'react-dom/client';
 const NAVIGATION = [
   {
     kind: 'header',
     title: 'Browse Services',
   },
   {
-    segment: 'View Balance',
+    segment: 'ViewBalance',
     title: 'View Balance',
     icon: <AccountBalanceWalletIcon />,
   },
   {
-    segment: 'orders',
-    title: 'Orders',
-    image: '/myphoto.jpg', // Adjust the path to your image
+    segment: 'MakeTransaction',
+    title: 'Make Transaction',
     icon: <PaymentIcon />,
+        children: [
+      {
+        segment: 'MakeCreditTransaction',
+        title: 'Make Credit Transaction',
+        icon: <AddIcon />,
+      },
+      {
+        segment: 'MakeDebitTransaction',
+        title: 'Make Debit Transaction',
+        icon: <RemoveIcon />,
+      },
+    ],
+
   },
   {
     segment: 'ViewStateMent',
@@ -84,6 +104,37 @@ function CustomToolbarActions() {
 }
 
 function DemoPageContent({ pathname }) {
+  
+  if (pathname === '/dashboard' || pathname === '/ViewBalance') {
+    return(
+    <ViewBalance />
+    )
+  }
+  else if (pathname === '/MakeTransaction/MakeCreditTransaction') {
+    return (
+      <MakeCreditTransaction />
+    );
+  }
+  else if (pathname === '/MakeTransaction/MakeDebitTransaction') {
+    return (
+      <MakeDebitTransaction />
+    );
+  }
+  else if (pathname === '/ViewStateMent') {
+    return (
+      <ViewStatement />
+    );
+  }
+  else if (pathname === '/CustomerService') {
+    return (
+      <CustomerServices />
+    );
+  }
+  else if (pathname === '/AboutUs') {
+    return (
+      <AboutUs />
+    );
+  }
   return (
     <Box
       sx={{
@@ -271,6 +322,7 @@ function Home(props) {
   const { window } = props;
 
   const [pathname, setPathname] = React.useState('/dashboard');
+  const [segment, setSegment] = React.useState('ViewBalance');
 
   const router = React.useMemo(() => {
     return {
