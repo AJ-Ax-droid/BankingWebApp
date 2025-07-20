@@ -184,8 +184,8 @@ AccountSidebarPreview.propTypes = {
 const accounts = [
   {
     id: 1,
-    name: 'Bharat Kashyap',
-    email: 'bharatkashyap@outlook.com',
+    name: 'Mohan Pandey',
+    email: 'mohan.pandey@outlook.com',
     image: '/myphoto.jpg', // Adjust the path to your image
     projects: [
       {
@@ -196,8 +196,8 @@ const accounts = [
   },
   {
     id: 2,
-    name: 'Bharat MUI',
-    email: 'bharat@mui.com',
+    name: 'Mohan MUI',
+    email: 'mohan@mui.com',
     color: '#8B4513', // Brown color
     projects: [{ id: 4, title: 'Project A' }],
   },
@@ -312,8 +312,8 @@ SidebarFooterAccount.propTypes = {
 
 const demoSession = {
   user: {
-    name: 'Bharat Kashyap',
-    email: 'bharatkashyap@outlook.com',
+    name: 'Mohan Pandey',
+    email: 'mohan.pandey@outlook.com',
     image: '/myphoto.jpg', // Adjust the path to your image
   },
 };
