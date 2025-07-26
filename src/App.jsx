@@ -1,36 +1,22 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import PhoneIcon from '@mui/icons-material/Phone';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Home from './Home.jsx';
+import LoginPage from './LoginPage.jsx';
+import { useUser } from './UserContext.jsx';
 
 export default function App() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const { user } = useUser();
 
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', marginTop: 0 }}>
-      <Tabs
-        sx={{
-          borderBottom: 1,
-          borderColor: 'divider',
-          minWidth: 320,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        value={value}
-        onChange={handleChange}
-        aria-label="icon label tabs example"
-        centered
-      >
-        <Tab icon={<PhoneIcon />} label="RECENTS" />
-        <Tab icon={<FavoriteIcon />} label="FAVORITES" />
-        <Tab icon={<PersonPinIcon />} label="NEARBY" />
-      </Tabs>
-    </div>
+    <Routes>
+      <Route 
+        path="/" 
+        element={user ? <Home /> : <Navigate to="/LoginPage" replace />} 
+      />
+      <Route 
+        path="/LoginPage" 
+        element={user ? <Navigate to="/" replace /> : <LoginPage />} 
+      />
+    </Routes>
   );
 }

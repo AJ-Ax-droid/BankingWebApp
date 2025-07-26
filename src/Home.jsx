@@ -17,6 +17,7 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import InfoIcon from '@mui/icons-material/Info';
+import { useUser } from './UserContext';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout, ThemeSwitcher } from '@toolpad/core/DashboardLayout';
 import {
@@ -312,7 +313,7 @@ SidebarFooterAccount.propTypes = {
 
 const demoSession = {
   user: {
-    name: 'Mohan Pandey',
+    name: 'username',
     email: 'mohan.pandey@outlook.com',
     image: '/myphoto.jpg', // Adjust the path to your image
   },
@@ -323,6 +324,10 @@ function Home(props) {
 
   const [pathname, setPathname] = React.useState('/dashboard');
   const [segment, setSegment] = React.useState('ViewBalance');
+  const [mail, setMail] = React.useState('');
+  const {user, userRole, username, password, userEmail, userId,clearUserData} = useUser();
+  setMail(userEmail);
+  console.log(username, userRole, userEmail, userId);
 
   const router = React.useMemo(() => {
     return {
@@ -340,8 +345,12 @@ function Home(props) {
     return {
       signIn: () => {
         setSession(demoSession);
+        setPathname('/login');
       },
       signOut: () => {
+        clearUserData();
+        setPathname('/login');
+
         setSession(null);
       },
     };

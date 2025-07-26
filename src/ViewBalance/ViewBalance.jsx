@@ -19,17 +19,11 @@ function ViewBalance() {
   return (
     <div>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 400,
-          height: 500, marginLeft: '30%', marginTop: 5,
-
-          borderRadius: 1,
-          bgcolor: 'primary.main',
-          '&:hover': {
-            bgcolor: 'primary.dark',
-          },
+          height: 500, marginLeft: '30%', marginTop: 5, padding: 4, boxShadow: 19, borderRadius: 3, bgcolor: 'background.paper'
         }}>
                <h1 >View Balance</h1>
 
-               <Typography variant="h6" sx={{ mb: 2, color: 'white' }}>
+               <Typography variant="h6" sx={{ mb: 2, color: 'Black' }}>
                 Your current balance is: $1000
                </Typography>
                
