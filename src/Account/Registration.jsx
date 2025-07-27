@@ -57,13 +57,13 @@ export default function Registration() {
         accountCreatedOn: now,
       },
       userLoginDetails: {
-        userName: UserData.Email,
+        userName: UserData.UserName,
         password: UserData.Password,
         userEmail: UserData.Email,
       },
     };
     // Log the payload to console or send it to your API
-    axios.post('https://localhost:7231/api/User', registrationPayload)
+    axios.post('https://bmbapi.onrender.com/api/User', registrationPayload)
       .then(response => {
         console.log('Registration successful:', response.data);
         // alert('Registration successful!');

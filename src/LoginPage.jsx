@@ -58,7 +58,7 @@ export default function LoginPage(props) {
     event.preventDefault();
 // setIsLoggedIn(true);
 
-axios.get(`https://localhost:7231/api/UserLoginDetail/VerifyLogin?username=${username}&password=${password}`, {
+axios.get(`https://bmbapi.onrender.com/api/UserLoginDetail/VerifyLogin?username=${username}&password=${password}`, {
     })
     .then((response) => {
       if(response.status==200){
