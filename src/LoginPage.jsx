@@ -71,7 +71,7 @@ axios.get(`https://localhost:7231/api/UserLoginDetail/VerifyLogin?username=${use
         localStorage.setItem('user', JSON.stringify(response.data));
         localStorage.setItem('userId', response.data.userID);
         localStorage.setItem('username', response.data.username);
-        localStorage.setItem('userEmail', userData.userEmail);
+        localStorage.setItem('userEmail', response.data.userEmail);
       }
       else{
         alert("Invalid Credentials");
@@ -130,12 +130,7 @@ axios.get(`https://localhost:7231/api/UserLoginDetail/VerifyLogin?username=${use
           <Button
           onClick={handleLogin}
            sx={{ mt: 1 /* margin top */ }}>Log in</Button>
-          <Typography
-            endDecorator={<Link href="/sign-up">Sign up</Link>}
-            sx={{ fontSize: 'sm', alignSelf: 'center' }}
-          >
-            Don&apos;t have an account?
-          </Typography>
+            <Button variant="text" onClick={() => navigate('/Registration')}>New To BMB</Button>
         </Sheet>
       </CssVarsProvider>
     </main>

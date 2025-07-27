@@ -324,10 +324,10 @@ function Home(props) {
 
   const [pathname, setPathname] = React.useState('/dashboard');
   const [segment, setSegment] = React.useState('ViewBalance');
-  const [mail, setMail] = React.useState('');
+  // const [mail, setMail] = React.useState('');
   const {user, userRole, username, password, userEmail, userId,clearUserData} = useUser();
-  setMail(userEmail);
-  console.log(username, userRole, userEmail, userId);
+  // setMail(userEmail);
+  // console.log(username, userRole, userEmail, userId);
 
   const router = React.useMemo(() => {
     return {
