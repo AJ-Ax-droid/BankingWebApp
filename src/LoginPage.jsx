@@ -106,14 +106,10 @@ axios.get(`https://bmbapi.onrender.com/api/UserLoginDetail/VerifyLogin?username=
             <Typography level="body-sm">Sign in to continue.</Typography>
           </div>
           <FormControl>
-            <FormLabel>Email</FormLabel>
+            <FormLabel>User Name</FormLabel>
             <Input
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              // html input attribute
-              name="email"
-              type="email"
-              placeholder="johndoe@email.com"
             />
           </FormControl>
           <FormControl>
