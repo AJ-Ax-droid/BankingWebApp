@@ -338,7 +338,7 @@ function Home(props) {
 const CurrentAccountDetail = {
   user: {
     name: user.firstName,
-    email: userEmail,
+    email: user.emailID,
     image: '/myphoto.jpg', // Adjust the path to your image
   },
 };
