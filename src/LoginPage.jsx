@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import Sheet from '@mui/joy/Sheet';
+import LinearProgress from '@mui/joy/LinearProgress';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Typography from '@mui/joy/Typography';
 import FormControl from '@mui/joy/FormControl';
@@ -11,7 +12,7 @@ import Link from '@mui/joy/Link';
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import App from './App';
-import { Routes, useNavigate,Route} from 'react-router-dom';
+import { Routes, useNavigate,Route, Form} from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from './UserContext';  
 import Home from './Home';
@@ -53,10 +54,12 @@ export default function LoginPage(props) {
  const [username, setUsername] = React.useState('');
  const [password, setPassword] = React.useState('');
   const { setUser, setToken, setUserRole,setUserId, setUserEmail, setUsername: setUsernameContext, setPassword: setPasswordContext } = useUser();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleLogin = (event) => {
     event.preventDefault();
-// setIsLoggedIn(true);
+    setIsLoading(true);
+    // setIsLoggedIn(true);
 
 axios.get(`https://bmbapi.onrender.com/api/UserLoginDetail/VerifyLogin?username=${username}&password=${password}`, {
     })
@@ -71,11 +74,17 @@ axios.get(`https://bmbapi.onrender.com/api/UserLoginDetail/VerifyLogin?username=
         localStorage.setItem('user', JSON.stringify(response.data));
         localStorage.setItem('userId', response.data.userID);
         localStorage.setItem('username', response.data.username);
-        localStorage.setItem('userEmail', response.data.userEmail);
+        localStorage.setItem('userEmail', response.data.emailID);
       }
       else{
         alert("Invalid Credentials");
+        setIsLoading(false);
       }
+    })
+    .catch((error) => {
+      console.error('Login error:', error);
+      alert("Invalid Credentials");
+      setIsLoading(false);
     });
   };
 
@@ -105,9 +114,14 @@ axios.get(`https://bmbapi.onrender.com/api/UserLoginDetail/VerifyLogin?username=
             </Typography>
             <Typography level="body-sm">Sign in to continue.</Typography>
           </div>
-          <FormControl>
-            <FormLabel>User Name</FormLabel>
-            <Input
+          <form onSubmit={handleLogin} style={{ width: '100%' }}>
+            <FormControl>
+              <FormLabel>User Name</FormLabel>
+              <Input
+                name="username"
+              placeholder="Enter your username"
+              required
+              autoFocus
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -117,15 +131,29 @@ axios.get(`https://bmbapi.onrender.com/api/UserLoginDetail/VerifyLogin?username=
             <Input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              // autoComplete="current-password" // Uncomment if you want to use browser's password manager
+              autoFocus // Uncomment if you want to focus on this input by default 
+
               // html input attribute
               name="password"
               type="password"
               placeholder="password"
             />
           </FormControl>
-          <Button
-          onClick={handleLogin}
-           sx={{ mt: 1 /* margin top */ }}>Log in</Button>
+          <Button 
+           variant="solid" 
+           color="primary" 
+           fullWidth 
+           type="submit" 
+           disabled={isLoading}
+           // onClick={() => navigate('/Home')}
+          // onClick={handleLogin}
+           sx={{ mt: 1 /* margin top */ }}>
+            {isLoading ? 'Logging in...' : 'Log in'}
+            </Button>
+        {isLoading && <LinearProgress />}
+        </form>
             <Button variant="text" onClick={() => navigate('/Registration')}>New To BMB</Button>
         </Sheet>
       </CssVarsProvider>

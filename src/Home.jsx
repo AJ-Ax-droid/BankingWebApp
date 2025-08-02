@@ -35,6 +35,7 @@ import ViewStatement from './ViewStatement/ViewStatement';
 import CustomerServices from './CustomerServices/CustomerServices';
 import AboutUs from './AboutUs/AboutUs';
 import { createRoot } from 'react-dom/client';
+import axios from 'axios';
 const NAVIGATION = [
   {
     kind: 'header',
@@ -311,24 +312,36 @@ SidebarFooterAccount.propTypes = {
   mini: PropTypes.bool.isRequired,
 };
 
-const demoSession = {
-  user: {
-    name: 'username',
-    email: 'mohan.pandey@outlook.com',
-    image: '/myphoto.jpg', // Adjust the path to your image
-  },
-};
+// const CurrentAccountDetail = {
+//   user: {
+//     name: user.firstName,
+//     email: userEmail,
+//     image: '/myphoto.jpg', // Adjust the path to your image
+//   },
+// };
 
 function Home(props) {
   const { window } = props;
 
   const [pathname, setPathname] = React.useState('/dashboard');
   const [segment, setSegment] = React.useState('ViewBalance');
+  const [UserAaccountDetails, setUserAccountDetails] = React.useState({
+    panNo: '',
+    accountNo: '',
+    account_Type: '',
+    accountCreatedOn: '',
+  });
   // const [mail, setMail] = React.useState('');
   const {user, userRole, username, password, userEmail, userId,clearUserData} = useUser();
   // setMail(userEmail);
-  // console.log(username, userRole, userEmail, userId);
-
+  console.log(user.firstName, userRole, userEmail, userId);
+const CurrentAccountDetail = {
+  user: {
+    name: user.firstName,
+    email: userEmail,
+    image: '/myphoto.jpg', // Adjust the path to your image
+  },
+};
   const router = React.useMemo(() => {
     return {
       pathname,
@@ -340,11 +353,24 @@ function Home(props) {
   // Remove this const when copying and pasting into your project.
   const demoWindow = window !== undefined ? window() : undefined;
 
-  const [session, setSession] = React.useState(demoSession);
+  const [session, setSession] = React.useState(CurrentAccountDetail);
+
+  React.useEffect(() => {
+    axios.get(`https://localhost:7231/api/UserAccountDetail/GetUserAccountDetailsByUserID/${userId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setUserAccountDetails(response.data);
+          console.log('User Account Details:', response.data);
+        } else {
+          console.error('Login failed');
+        }
+      });
+  }, [userId]);
+
   const authentication = React.useMemo(() => {
     return {
       signIn: () => {
-        setSession(demoSession);
+        setSession(CurrentAccountDetail);
         setPathname('/login');
       },
       signOut: () => {
