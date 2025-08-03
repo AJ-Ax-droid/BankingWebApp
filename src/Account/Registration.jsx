@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import { Button } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import LinearProgress from '@mui/joy/LinearProgress';
 
 export default function Registration() {
   const [UserData, setUserData] = React.useState({
@@ -81,7 +82,7 @@ export default function Registration() {
   return (
        <Box
       component="form"
-      sx={{ width: 600, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, p: 4, boxShadow: 3, borderRadius: 3, bgcolor: 'background.paper' }}
+      sx={{ mr: 2, width: 600, height: 500, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 3, p: 4, boxShadow: 3, borderRadius: 3, bgcolor: 'background.paper' }}
       noValidate
       autoComplete="off"
       >
@@ -110,6 +111,7 @@ export default function Registration() {
         <Button onClick={handleSubmit} variant="contained" color="primary" style={{ marginTop: '16px', width: '25ch', display: 'flex', justifyContent: 'center', alignItems: 'center', }} >
           Register with BMB
         </Button>
+        <Button variant="text" onClick={() => navigate('/LoginPage')}>Already have an account? Login</Button>
       </Stack>
     </Box>
   );

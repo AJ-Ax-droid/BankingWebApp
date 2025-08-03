@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
+import Button from '@mui/joy/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -26,6 +27,7 @@ import {
   AccountPopoverFooter,
   SignOutButton,
 } from '@toolpad/core/Account';
+import CreateNewAccount from './Account/CreateNewAccount';
 
 import { DemoProvider } from '@toolpad/core/internal';
 import ViewBalance from './ViewBalance/ViewBalance';
@@ -183,7 +185,7 @@ AccountSidebarPreview.propTypes = {
   open: PropTypes.bool,
 };
 
-const accounts = [
+const UsersBankAccounts = [
   {
     id: 1,
     name: 'Mohan Pandey',
@@ -204,6 +206,14 @@ const accounts = [
     projects: [{ id: 4, title: 'Project A' }],
   },
 ];
+const AddNewAccount = () => {
+  // Logic to add a new account
+  console.log('Add New Account Clicked');
+  // You can open a dialog or redirect to a new account creation page
+  return <CreateNewAccount />;
+  <CreateNewAccount />;
+
+};
 
 function SidebarFooterAccountPopover() {
   return (
@@ -212,7 +222,7 @@ function SidebarFooterAccountPopover() {
         Accounts
       </Typography>
       <MenuList>
-        {accounts.map((account) => (
+        {UsersBankAccounts.map((account) => (
           <MenuItem
             key={account.id}
             component="button"
@@ -252,7 +262,12 @@ function SidebarFooterAccountPopover() {
         ))}
       </MenuList>
       <Divider />
-      <AccountPopoverFooter>
+      <AccountPopoverFooter sx={{ justifyContent: 'space-between' }}>
+        <AddIcon
+          titleAccess='Add Account'
+          sx={{ fontSize: 40, color: 'text.secondary', cursor: 'pointer' }}
+          onClick={AddNewAccount}
+        />
         <SignOutButton />
       </AccountPopoverFooter>
     </Stack>
@@ -331,6 +346,7 @@ function Home(props) {
     account_Type: '',
     accountCreatedOn: '',
   });
+  const [UserCurrentAccountDetails, setUserCurrentAccountDetails] = React.useState()
   // const [mail, setMail] = React.useState('');
   const {user, userRole, username, password, userEmail, userId,clearUserData} = useUser();
   // setMail(userEmail);
@@ -340,6 +356,9 @@ const CurrentAccountDetail = {
     name: user.firstName,
     email: user.emailID,
     image: '/myphoto.jpg', // Adjust the path to your image
+    accountNo: UserAaccountDetails.accountNo,
+    account_Type: UserAaccountDetails.account_Type,
+    accountCreatedOn: UserAaccountDetails.accountCreatedOn,
   },
 };
   const router = React.useMemo(() => {
@@ -360,6 +379,14 @@ const CurrentAccountDetail = {
       .then((response) => {
         if (response.status === 200) {
           setUserAccountDetails(response.data);
+          // Set only the first item from response.data
+          if (Array.isArray(response.data) && response.data.length > 0) {
+            console.log('User Account Details:', response.data[0]);
+            setUserCurrentAccountDetails(response.data[0]);
+          } else {
+            console.error('No account details found');
+            setUserCurrentAccountDetails(null);
+          }
           console.log('User Account Details:', response.data);
         } else {
           console.error('Login failed');
@@ -379,6 +406,7 @@ const CurrentAccountDetail = {
 
         setSession(null);
       },
+      
     };
   }, []);
 
@@ -391,7 +419,7 @@ const CurrentAccountDetail = {
         branding={{
         logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
          title: 'My Banking App',
-         homeUrl: '/toolpad/core/introduction',
+         homeUrl: '/ViewBalance',
             }}
         theme={demoTheme}
         window={demoWindow}
@@ -409,6 +437,7 @@ const CurrentAccountDetail = {
         </DashboardLayout>
         {/* preview-end */}
       </AppProvider>
+      
     </DemoProvider>
   );
 }

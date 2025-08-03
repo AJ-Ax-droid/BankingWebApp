@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { styled } from '@mui/material/styles';
 import FormControl from '@mui/material/FormControl';
+import axios from 'axios';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -20,7 +21,32 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export default function MakeCreditTransaction() {
+export default function MakeCreditTransaction() 
+{
+  const [creditAmount, setCreditAmount] = React.useState('');
+  const [username, setUsername] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+
+const handleCreditTransaction = (event) => {
+  event.preventDefault();
+  // Logic to handle credit transaction submission
+  console.log('Credit Transaction Submitted');
+  axios.post('/api/credit-transaction', {
+    // Include necessary data for the credit transaction
+  })
+  .then(response => {
+    if (response.status === 200) {
+      console.log('Transaction successful:', response.data);
+      // Optionally, navigate to a different page or show a success message
+    } else {
+      console.error('Transaction failed:', response.data);
+    }
+  })
+  .catch(error => {
+    console.error('Error processing transaction:', error);
+  });
+}
+
   return (
     <Box sx={{ minHeight: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Box
@@ -54,6 +80,9 @@ export default function MakeCreditTransaction() {
         <Button
           sx={{ mt: 2, width: '60%' }}
           component="label"
+          variant="outlined"
+          color="primary"
+          onClick={handleCreditTransaction}
           role={undefined}
           variant="contained"
           tabIndex={-1}

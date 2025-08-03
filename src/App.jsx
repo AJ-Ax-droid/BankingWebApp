@@ -5,6 +5,7 @@ import LoginPage from './LoginPage.jsx';
 import { useUser } from './UserContext.jsx';
 import Registration from './Account/Registration.jsx';
 
+
 export default function App() {
   const { user } = useUser();
 

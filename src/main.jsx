@@ -6,6 +6,7 @@ import LoginPage from './LoginPage.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { Login } from '@mui/icons-material'
 import { UserProvider } from './UserContext.jsx'
+import './CSS/App.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
