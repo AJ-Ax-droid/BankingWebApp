@@ -375,7 +375,7 @@ const CurrentAccountDetail = {
   const [session, setSession] = React.useState(CurrentAccountDetail);
 
   React.useEffect(() => {
-    axios.get(`https://localhost:7231/api/UserAccountDetail/GetUserAccountDetailsByUserID/${userId}`)
+    axios.get(`https://bmbapi.onrender.com/api/UserAccountDetail/GetUserAccountDetailsByUserID/${userId}`)
       .then((response) => {
         if (response.status === 200) {
           setUserAccountDetails(response.data);
