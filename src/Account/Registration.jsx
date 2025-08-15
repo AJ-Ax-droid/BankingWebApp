@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LinearProgress from '@mui/joy/LinearProgress';
+import config from '../config'; // Assuming you have a config file for API base URL
 
 export default function Registration() {
   const [UserData, setUserData] = React.useState({
@@ -64,7 +65,7 @@ export default function Registration() {
       },
     };
     // Log the payload to console or send it to your API
-    axios.post('https://bmbapi.onrender.com/api/User', registrationPayload)
+    axios.post(`${config.apiBaseUrl}/api/User`, registrationPayload)
       .then(response => {
         console.log('Registration successful:', response.data);
         // alert('Registration successful!');

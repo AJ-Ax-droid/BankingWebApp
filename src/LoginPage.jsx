@@ -16,6 +16,7 @@ import { Routes, useNavigate,Route, Form} from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from './UserContext';  
 import Home from './Home';
+import config from './config'; // Assuming you have a config file for API base URL
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
@@ -61,7 +62,7 @@ export default function LoginPage(props) {
     setIsLoading(true);
     // setIsLoggedIn(true);
 
-axios.get(`https://bmbapi.onrender.com/api/UserLoginDetail/VerifyLogin?username=${username}&password=${password}`, {
+axios.get(`${config.apiBaseUrl}/api/UserLoginDetail/VerifyLogin?username=${username}&password=${password}`, {
     })
     .then((response) => {
       if(response.status==200){

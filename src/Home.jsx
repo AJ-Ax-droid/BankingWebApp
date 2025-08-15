@@ -1,4 +1,5 @@
 import * as React from 'react';
+import config from './config'; // Assuming you have a config file for API base URL
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -375,7 +376,7 @@ const CurrentAccountDetail = {
   const [session, setSession] = React.useState(CurrentAccountDetail);
 
   React.useEffect(() => {
-    axios.get(`https://bmbapi.onrender.com/api/UserAccountDetail/GetUserAccountDetailsByUserID/${userId}`)
+    axios.get(`${config.apiBaseUrl}/api/UserAccountDetail/GetUserAccountDetailsByUserID/${userId}`)
       .then((response) => {
         if (response.status === 200) {
           setUserAccountDetails(response.data);

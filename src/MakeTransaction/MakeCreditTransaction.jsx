@@ -8,6 +8,8 @@ import AddIcon from '@mui/icons-material/Add';
 import { styled } from '@mui/material/styles';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios';
+import config from '../config';
+
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -31,7 +33,7 @@ const handleCreditTransaction = (event) => {
   event.preventDefault();
   // Logic to handle credit transaction submission
   console.log('Credit Transaction Submitted');
-  axios.post('/api/credit-transaction', {
+  axios.post(`${config.apiBaseUrl}/api/TransactionDetail/MakeCreditTransactioninAccount`, {
     // Include necessary data for the credit transaction
   })
   .then(response => {
@@ -84,7 +86,7 @@ const handleCreditTransaction = (event) => {
           color="primary"
           onClick={handleCreditTransaction}
           role={undefined}
-          variant="contained"
+        //  variant="contained"
           tabIndex={-1}
           startIcon={<AddIcon />}
         >

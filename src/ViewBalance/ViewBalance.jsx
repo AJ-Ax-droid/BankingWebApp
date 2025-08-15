@@ -5,17 +5,48 @@ import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
+import { useUser } from '../UserContext';
+import config from '../config'; // Assuming you have a config file for API base URL
+import axios from 'axios';
 
 function ViewBalance() {
   const [values, setValues] = React.useState({
     showPassword: false,
   });
+  const [balance, setBalance] = useState(0);
+  const {user, userRole, username, password, userEmail, userId,clearUserData} = useUser();
   const handleClickShowPassword = () => {
     setValues({
       ...values,
       showPassword: !values.showPassword,
     });
   };
+React.useEffect(() => {
+const userdetails={
+  userID: userId,
+  accountNo: 'axMMPPAJBMBS17', 
+};
+  // Fetch the user's balance from the API
+  const fetchBalance = async () => {
+   try {
+    const response = await axios.get(`${config.apiBaseUrl}/api/UserAccountDetail/GetUserAccountBalanceByAccountNoAndUserId`, {
+      params: {
+        accountNo: userdetails.accountNo,
+        userId: userdetails.userID
+      }
+    });
+    if (response.status === 200) {
+      setBalance(response.data);
+     console.log(balance);
+    }
+   } catch (error) {
+    console.error('Error fetching balance:', error);
+   }
+  };
+
+  fetchBalance();
+}, []);
+
   return (
     <div>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 400,
@@ -24,7 +55,7 @@ function ViewBalance() {
                <h1 >View Balance</h1>
 
                <Typography variant="h6" sx={{ mb: 2, color: 'Black' }}>
-                Your current balance is: $1000
+                Your current balance is: ${balance.data}
                </Typography>
                
           {/* <IconButton
