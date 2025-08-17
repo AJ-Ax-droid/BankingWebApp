@@ -14,7 +14,7 @@ function ViewBalance() {
     showPassword: false,
   });
   const [balance, setBalance] = useState(0);
-  const {user, userRole, username, password, userEmail, userId,clearUserData} = useUser();
+  const {user, userRole, username, password, userEmail, userId,clearUserData, currentAccount} = useUser();
   const handleClickShowPassword = () => {
     setValues({
       ...values,
@@ -24,7 +24,7 @@ function ViewBalance() {
 React.useEffect(() => {
 const userdetails={
   userID: userId,
-  accountNo: 'axMMPPAJBMBS17', 
+  accountNo: currentAccount.accountNo, 
 };
   // Fetch the user's balance from the API
   const fetchBalance = async () => {
@@ -54,7 +54,7 @@ const userdetails={
         }}>
                <h1 >View Balance</h1>
 
-               <Typography variant="h6" sx={{ mb: 2, color: 'Black' }}>
+               <Typography variant="h6" sx={{ mb: 2 }}>
                 Your current balance is: ${balance.data}
                </Typography>
                

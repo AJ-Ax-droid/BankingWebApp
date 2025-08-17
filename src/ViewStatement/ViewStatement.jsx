@@ -8,6 +8,7 @@ import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import config from '../config'; // Assuming you have a config file for API base URL
 import axios from 'axios';
+import { useUser } from '../UserContext'; // Assuming you have a UserContext for user data
 
 function CustomToolbar() {
   // Placeholder toolbar, you can add your own export/print logic here if needed
@@ -54,10 +55,11 @@ const columns = [
 export default function GridExportTrigger() {
 
   const [rows, setRows] = React.useState([]);
+  const { user, currentAccount } = useUser(); // Assuming you have a UserContext for user data
 React.useEffect(() => {
   // Placeholder for any side effects or data fetching
 
-axios.get(`${config.apiBaseUrl}/api/TransactionDetail/GetAllTransactionDetailsByAccountNumber/axMMPPAJBMBS17`)
+axios.get(`${config.apiBaseUrl}/api/TransactionDetail/GetAllTransactionDetailsByAccountNumber/${currentAccount.accountNo}`)
     .then(response => {
       console.log('Data fetched successfully:', response.data);
       setRows(response.data); // Assuming response.data is an array of transaction objects

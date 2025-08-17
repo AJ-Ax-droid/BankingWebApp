@@ -4,16 +4,20 @@ import App from './App.jsx'
 import Home from './Home.jsx'
 import LoginPage from './LoginPage.jsx'
 import { BrowserRouter } from 'react-router-dom'
+import { CssVarsProvider } from '@mui/joy/styles';
 import { Login } from '@mui/icons-material'
 import { UserProvider } from './UserContext.jsx'
 import './CSS/App.css'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
+    <CssVarsProvider>
+
     <BrowserRouter basename="/BankingWebApp/">
       <UserProvider>
         <App />
       </UserProvider>
     </BrowserRouter>
-  </StrictMode>,
+    </CssVarsProvider>
+  // </StrictMode>,
 )

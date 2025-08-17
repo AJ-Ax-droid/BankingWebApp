@@ -10,6 +10,8 @@ export const UserProvider = ({ children }) => {
   const [password, setPasswordState] = useState('');
   const [userEmail, setUserEmailState] = useState('');
   const [userId, setUserIdState] = useState(null);
+  const [UserAccountDetails, setUserAccountState] = useState(null);
+  const [currentAccount,setCurrentAccountState] = useState(null);
 
     useEffect(() => {
     // Load user data from localStorage or API
@@ -20,7 +22,11 @@ export const UserProvider = ({ children }) => {
     const storedPassword = localStorage.getItem('password');
     const storedUserEmail = localStorage.getItem('userEmail');
     const storedUserId = localStorage.getItem('userId');
+    const storedUserAccountDetails = localStorage.getItem('UserAccountDetails');
+    const storedCurrentAccount = localStorage.getItem('currentAccount');
+    if (storedUserAccountDetails) setUserAccountState(JSON.parse(storedUserAccountDetails));
     if (storedUser) setUserState(JSON.parse(storedUser));
+    if (storedCurrentAccount) setCurrentAccountState(JSON.parse(storedCurrentAccount));
     if (storedToken) setTokenState(storedToken);
     if (storedUserRole) setUserRoleState(storedUserRole);
     if (storedUsername) setUsernameState(storedUsername);
@@ -47,9 +53,18 @@ export const UserProvider = ({ children }) => {
     const setUserEmail = (email) => {
         setUserEmailState(email);
     };
+    const setUserAccountDetails = (accountDetails) => {
+        setUserAccountState(accountDetails);
+        localStorage.setItem('UserAccountDetails', JSON.stringify(accountDetails));
+    };
+    const setCurrentAccount = (account) => {
+        setCurrentAccountState(account);
+        localStorage.setItem('currentAccount', JSON.stringify(account));
+    };
     const setUserId = (id) => {
         setUserIdState(id);
     };
+    
     // Save user data to localStorage or API
     const clearUserData = () => {
         console.log("Clearing user data");
@@ -60,6 +75,8 @@ export const UserProvider = ({ children }) => {
         setPasswordState('');
         setUserEmailState('');
         setUserIdState(null);
+        setUserAccountState(null);
+        setCurrentAccountState(null);
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('userRole');
@@ -67,6 +84,8 @@ export const UserProvider = ({ children }) => {
         localStorage.removeItem('password');
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userId');
+        localStorage.removeItem('UserAccountDetails');
+        localStorage.removeItem('currentAccount');
     };
     
     const isrole = (role) => {
@@ -74,7 +93,7 @@ export const UserProvider = ({ children }) => {
     };
 
   return (
-    <UserContext.Provider value={{ user, isrole, setUser, setToken, setUserRole, setUsername, setPassword, setUserEmail, setUserId, userRole, username, password, userEmail, userId, clearUserData }}>
+    <UserContext.Provider value={{ user, isrole, setUser, setToken, setUserRole, setUsername, setPassword, setUserEmail, setUserId, setUserAccountDetails, setCurrentAccount, userRole, username, password, userEmail, userId, UserAccountDetails, currentAccount, clearUserData }}>
       {children}
     </UserContext.Provider>
   );
