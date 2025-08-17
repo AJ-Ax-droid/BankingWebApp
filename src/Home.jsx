@@ -476,7 +476,7 @@ function Home(props) {
         navigation={NAVIGATION}
         router={router}
         branding={{
-          logo: <img src="/BMBLogo.png" alt="BMB Logo" />,
+          logo: <img src="./BMBLogo.png" alt="BMB Logo" />,
           title: 'Bhartiya Manoranjan Bank',
           homeUrl: '/ViewBalance',
         }}
