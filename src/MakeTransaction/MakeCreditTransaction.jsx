@@ -109,6 +109,9 @@ export default function MakeCreditTransaction() {
           <CurrencyRupeeIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
           <TextField
             required
+            type='text'
+            inputMode='decimal'
+            slotProps={{ input: { inputProps: { maxLength:7 } } }}
             id="CreditAmount"
             label="Amount to Credit"
             variant="standard"

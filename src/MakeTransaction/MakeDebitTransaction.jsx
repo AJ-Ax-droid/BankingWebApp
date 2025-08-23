@@ -174,6 +174,7 @@ export default function MakeDebitTransaction() {
           <TextField
             required
             id="DebitAmount"
+            type='number'
             label="Enter Debit Amount"
             variant="standard"
             onChange={handleDebitAmountChange}

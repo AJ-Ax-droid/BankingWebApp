@@ -133,9 +133,7 @@ axios.get(`${config.apiBaseUrl}/api/UserLoginDetail/VerifyLogin?username=${usern
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              // autoComplete="current-password" // Uncomment if you want to use browser's password manager
-              autoFocus // Uncomment if you want to focus on this input by default 
-
+              // autoComplete="current-password" // Uncomment if you want to use browser's password manage
               // html input attribute
               name="password"
               type="password"
