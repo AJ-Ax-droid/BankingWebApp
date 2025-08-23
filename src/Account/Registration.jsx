@@ -94,9 +94,9 @@ export default function Registration() {
             <TextField value={UserData.LastName} onChange={handleUserDataUpdate} name="LastName" id="standard-basic" label="LastName" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
-             <TextField value={UserData.UserName} onChange={handleUserDataUpdate} name="UserName" id="standard-basic" label="UserName" variant="standard" />
-             <TextField value={UserData.Password} onChange={handleUserDataUpdate} name="Password" id="standard-basic" label="Password" variant="standard" />
-            <TextField value={UserData.ConfirmPassword} onChange={handleUserDataUpdate} name="ConfirmPassword" id="standard-basic" label="ConfirmPassword" variant="standard" />
+             <TextField value={UserData.UserName} onChange={handleUserDataUpdate}  name="UserName" id="standard-basic" label="UserName" variant="standard" />
+             <TextField value={UserData.Password} onChange={handleUserDataUpdate} type='password' name="Password" id="standard-basic" label="Password" variant="standard" />
+            <TextField value={UserData.ConfirmPassword} onChange={handleUserDataUpdate} type='password' name="ConfirmPassword" id="standard-basic" label="ConfirmPassword" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
             <TextField value={UserData.Email} onChange={handleUserDataUpdate} name="Email" id="standard-basic" label="Email" variant="standard" />
