@@ -172,11 +172,11 @@ function Home(props) {
           console.log('UserAccountDetails fetched successfully Response 200:', response.data);
           if (Array.isArray(response.data) && response.data.length > 0) {
             console.log('UserAccountDetails inside array check (Array):', response.data);
-            if (JSON.stringify(UserAccountDetails) !== JSON.stringify(response.data)) {
+            // if (JSON.stringify(UserAccountDetails) !== JSON.stringify(response.data)) {
               console.log('Updating UserAccountDetails (Array):', response.data);
               setUserAccountDetails(response.data);
               setCurrentAccount(response.data[0]);
-            }
+            // }
           } else if (response.data && typeof response.data === 'object') {
             if (JSON.stringify(UserAccountDetails) !== JSON.stringify([response.data])) {
               console.log('Updating UserAccountDetails (Object):', response.data);
@@ -198,20 +198,6 @@ function Home(props) {
     };
     getUserAccountDetails();
   }, [userId]); // Removed UserAccountDetails from dependencies
-
-// if (UserAccountDetails === null || UserAccountDetails.length === 0||UserAccountDetails===undefined) {
-//      return (
-//     <div>
-//       Waiting.....
-//       {/* <Backdrop
-//         sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-//         open={true}
-//       >
-//         <CircularProgress color="inherit" />
-//       </Backdrop> */}
-//     </div>
-//   );
-//   }
 
 
   

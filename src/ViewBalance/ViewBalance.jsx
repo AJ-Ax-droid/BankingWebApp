@@ -22,6 +22,9 @@ function ViewBalance() {
     });
   };
 React.useEffect(() => {
+if (!currentAccount || !currentAccount.accountNo) {
+  return;
+}
 const userdetails={
   userID: userId,
   accountNo: currentAccount.accountNo, 
@@ -45,16 +48,13 @@ const userdetails={
   };
 
   fetchBalance();
-}, []);
+}, [currentAccount ]);
 
   return (
-    <div>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 400,
-          height: 500, marginLeft: '30%', marginTop: 5, padding: 4, boxShadow: 19, borderRadius: 3, bgcolor: 'background.paper'
-        }}>
-               <h1 >View Balance</h1>
-
-               <Typography variant="h6" sx={{ mb: 2 }}>
+    <div className="centered-container">
+    <Box className="Box-PaperBg">
+               <h1 style={{ textAlign: 'center' }} >View Balance</h1>
+               <Typography variant="h6" sx={{ mb: 2, justifyContent: 'center', display: 'flex',alignItems: 'center', gap: 1 }}>
                 Your current balance is: ${balance.data}
                </Typography>
                

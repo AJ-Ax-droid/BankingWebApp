@@ -13,6 +13,7 @@ import { useUser } from '../UserContext'; // Assuming you have a UserContext for
 import AlertSnackBar from '../CommonUtils/AlertSnackbar';
 import LinearProgress from '@mui/joy/LinearProgress';
 import { Snackbar } from '@mui/material';
+import { Input, InputAdornment } from '@mui/material';
 
 
 const VisuallyHiddenInput = styled('input')({
@@ -83,42 +84,50 @@ export default function MakeCreditTransaction() {
   };
 
   return (
-    <Box sx={{ minHeight: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 3 }}>
-      {snackbar.open && <AlertSnackBar message={snackbar.message} type={snackbar.type} />}
-      <Box
-        component="form"
-        sx={{ width: 400, height: 350, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, p: 4, boxShadow: 3, borderRadius: 3, bgcolor: 'background.paper' }}
-        noValidate
-        autoComplete="off"
-      >
-
-        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-          <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+    
+    <div className="centered-container">
+    <Box className="Box-PaperBg">
+       {snackbar.open && <AlertSnackBar message={snackbar.message} type={snackbar.type} />}
           <TextField
             id="CreditTransactionUserName"
             label="Enter Your Name"
             variant="standard"
             required
+            fullWidth
             value={user?.firstName + " " + user?.lastName || ''}
             InputProps={{
               readOnly: true,
             }}
+            slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            },
+          }}
           />
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-          <CurrencyRupeeIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
           <TextField
             required
             type='text'
             inputMode='decimal'
-            slotProps={{ input: { inputProps: { maxLength:7 } } }}
+            fullWidth
+            slotProps={{ input: {
+               startAdornment: (
+                <InputAdornment position="start">
+                  <CurrencyRupeeIcon />
+                </InputAdornment>
+              ),
+              inputProps: { maxLength:7 } } }}
             id="CreditAmount"
             label="Amount to Credit"
             variant="standard"
+            
             value={creditAmount}
             onChange={handleCreditAmountChange}
+            
           />
-        </Box >
         <Button
           sx={{ mt: 2, width: '60%' }}
           component="label"
@@ -133,6 +142,6 @@ export default function MakeCreditTransaction() {
         </Button>
         {isLoading && <LinearProgress sx={{ width: '100%', backgroundColor: 'transparent' }} />}
       </Box>
-    </Box>
+    </div>
   );
 }

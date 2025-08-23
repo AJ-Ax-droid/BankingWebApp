@@ -12,12 +12,13 @@ import { styled } from '@mui/material/styles';
 import PersonIcon from '@mui/icons-material/Person';
 import PaymentIcon from '@mui/icons-material/Payment';
 import FormControl from '@mui/material/FormControl';
+import { Input, InputAdornment } from '@mui/material';
 import axios from 'axios';
 import config from '../config';
 import { useUser } from '../UserContext'; // Assuming you have a UserContext for user data
 import AlertSnackBar from '../CommonUtils/AlertSnackbar';
 import LinearProgress from '@mui/joy/LinearProgress';
-
+import '../CSS/utility.css';
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -53,7 +54,7 @@ export default function MakeDebitTransaction() {
       ...DebitTransactiondetails,
       amountToSend: event.target.value
     });
-    
+
   };
   const handleReceiverAccountNoChange = (event) => {
     setDebitTransactionDetails({
@@ -77,7 +78,7 @@ export default function MakeDebitTransaction() {
     axios.get(`${config.apiBaseUrl}/api/UserAccountDetail/IsAccountExistinBMB?accountNo=${DebitTransactiondetails.receiverAccountNo}`)
       .then(response => {
         if (response.status === 200) {
-          
+
           console.log('Account verification successful:', response.data);
           if (!response.data.isSuccess) {
             setSnackbar({ open: true, message: response.data.message || 'Account verification failed!', type: 'error' });
@@ -95,7 +96,7 @@ export default function MakeDebitTransaction() {
       .catch(error => {
         console.error('Error occurred while verifying account:', error);
         setSnackbar({ open: true, message: 'Account verification failed!', type: 'error' });
-        
+
       })
       .finally(() => {
         setLoading(false);
@@ -111,7 +112,7 @@ export default function MakeDebitTransaction() {
     })
       .then(response => {
         if (response.status === 200) {
-         if (!response.data.isSuccess) {
+          if (!response.data.isSuccess) {
             setSnackbar({ open: true, message: response.data.message || 'Transaction failed!', type: 'error' });
           } else {
             setSnackbar({ open: true, message: response.data.message, type: 'success' });
@@ -132,55 +133,74 @@ export default function MakeDebitTransaction() {
 
 
   return (
-    <Box sx={{ minHeight: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 3 }}>
+    <div className="centered-container">
+    <Box className="Box-PaperBg">
       {snackbar.open && <AlertSnackBar message={snackbar.message} type={snackbar.type} />}
-      <Box
-        component="form"
-        sx={{ width: 400, height: 350, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, p: 4, boxShadow: 3, borderRadius: 3, bgcolor: 'background.paper' }}
-        noValidate
-        autoComplete="off"
-      >
-
-        <Box sx={{ display: 'flex', alignItems: 'flex-end',ml: 5 }}>
-          <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
           <TextField
             id="ReceiverAccountNo"
             label="Enter Receiver Account No"
             variant="standard"
             required
+            fullWidth
             onChange={handleReceiverAccountNoChange}
             value={DebitTransactiondetails.receiverAccountNo}
 
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleVerifyAccount} loading={loading} disabled={DebitTransactiondetails.isReceiverAccountVerifiedBMB} variant='contained' size='small'  ><CheckCircleOutlineIcon color={DebitTransactiondetails.isReceiverAccountVerifiedBMB ? 'success' : 'action.active'} /></IconButton>
+                  </InputAdornment>
+                )
+              }
+            }}
+
           />
-          <Tooltip title="Click Verify Account number">
-            <IconButton onClick={handleVerifyAccount} loading={loading} disabled={DebitTransactiondetails.isReceiverAccountVerifiedBMB} >
-              <CheckCircleOutlineIcon color={DebitTransactiondetails.isReceiverAccountVerifiedBMB ? 'success' : 'action.active'} />
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-          <PersonIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-          <TextField
-            required
-            id="ReceiverName"
-            label="Enter Receiver Name"
-            variant="standard"
-            onChange={handleReceiverNameChange}
-            value={DebitTransactiondetails.receiverAccountHolderName}
-          />
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-          <CurrencyRupeeIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+
+        
+        <TextField
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            },
+          }}
+          required
+          id="ReceiverName"
+          label="Enter Receiver Name"
+          variant="standard"
+          fullWidth
+          onChange={handleReceiverNameChange}
+          value={DebitTransactiondetails.receiverAccountHolderName}
+        />
+
           <TextField
             required
             id="DebitAmount"
             type='number'
             label="Enter Debit Amount"
             variant="standard"
+            fullWidth
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CurrencyRupeeIcon />
+                  </InputAdornment>
+                ),
+              },
+            }}
             onChange={handleDebitAmountChange}
             value={DebitTransactiondetails.amountToSend}
           />
-        </Box >
         <Button
           sx={{ mt: 2, width: '60%' }}
           component="label"
@@ -193,11 +213,23 @@ export default function MakeDebitTransaction() {
         >
           Send Money
         </Button>
+        <Button
+          sx={{ mt: 2, width: '60%' }}
+          component="label"
+          role={undefined}
+          variant="contained"
+          tabIndex={-1}
+          // onClick={handleSendMoney}
+          disabled={isLoading}
+          startIcon={<PaymentIcon />}
+        >
+          Scan & Pay
+        </Button>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {isLoading && <LinearProgress />}
         </Box>
       </Box>
-        
-    </Box>
+
+    </div>
   );
 }
