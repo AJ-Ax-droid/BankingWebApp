@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LinearProgress from '@mui/joy/LinearProgress';
 import config from '../config'; // Assuming you have a config file for API base URL
+import AlertSnackBar from '../CommonUtils/AlertSnackbar';
 
 export default function Registration() {
   const [UserData, setUserData] = React.useState({
@@ -24,18 +25,23 @@ export default function Registration() {
   });
 
   const navigate = useNavigate();
+  const [snackbar, setSnackbar] = React.useState({ open: false, message: '', type: '' });
 
   const handleUserDataUpdate = (event) => {
     const { name, value } = event.target;
     setUserData({ ...UserData, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit =  (event) => {
     event.preventDefault();
     // Here you can handle the registration logic, e.g., sending data to an API
     if (UserData.Password !== UserData.ConfirmPassword) {
       alert('Passwords do not match!');
       return; // Stop submission if passwords don't match
+    }
+    if (snackbar.open) 
+    {
+      setSnackbar({ open: false, message: '', type: '' });
     }
 
     const now = new Date().toISOString();
@@ -66,14 +72,21 @@ export default function Registration() {
       },
     };
     // Log the payload to console or send it to your API
-    axios.post(`${config.apiBaseUrl}/api/User`, registrationPayload)
-      .then(response => {
-        console.log('Registration successful:', response.data);
-        navigate('/LoginPage'); // Redirect to login page after successful registration
+  var responses=  axios.post(`${config.apiBaseUrl}/api/User`, registrationPayload)
+      .then(async response => {
+        if(response.status === 200){
+          console.log('Registration successful:', response.data);
+          setSnackbar({ open: true, message: 'Redirecting to login page for UserName: ' + response.data.userName, type: 'success' });
+          await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a delay
+          navigate('/LoginPage'); // Redirect to login page after successful registration
+        }
+        else{
+          setSnackbar({ open: true, message: 'response.data', type: 'error' });
+        }
       })
       .catch(error => {
         console.error('There was an error registering the user!', error);
-        alert('Registration failed. Please try again.');
+        alert('Registration failed. Please try again.' );
       });
 
      // For debugging purposes, you can log the payload
@@ -87,6 +100,7 @@ export default function Registration() {
       noValidate
       autoComplete="off"
       >
+        {snackbar.open && <AlertSnackBar message={snackbar.message} type={snackbar.type} />}
       <Stack direction="column" spacing={2}>
 
         <Stack direction="row" spacing={2}>
