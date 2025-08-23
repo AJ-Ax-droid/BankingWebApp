@@ -12,6 +12,7 @@ import config from '../config';
 import { useUser } from '../UserContext'; // Assuming you have a UserContext for user data
 import AlertSnackBar from '../CommonUtils/AlertSnackbar';
 import LinearProgress from '@mui/joy/LinearProgress';
+import { Snackbar } from '@mui/material';
 
 
 const VisuallyHiddenInput = styled('input')({
@@ -50,6 +51,10 @@ export default function MakeCreditTransaction() {
 
   const handleCreditTransaction = (event) => {
     event.preventDefault();
+    if (snackbar.open) 
+    {
+      setSnackbar({ open: false, message: '', type: '' });
+    }
     console.log('Credit Transaction Submitted');
     setIsLoading(true);
     axios.post(`${config.apiBaseUrl}/api/TransactionDetail/MakeCreditTransactioninAccount`, {
@@ -58,10 +63,10 @@ export default function MakeCreditTransaction() {
       .then(response => {
         if (response.status === 200) {
           console.log('Transaction successful:', response.data);
-          if (!response.data.isSuccess) {
-            setSnackbar({ open: true, message: response.data.message || 'Transaction failed!', type: 'error' });
+          if (!response.data) {
+            setSnackbar({ open: true, message: response.data || 'Transaction failed!', type: 'error' });
           } else {
-            setSnackbar({ open: true, message: response.data.message, type: 'success' });
+            setSnackbar({ open: true, message: response.data, type: 'success' });
           }
         } else {
           console.error('Transaction failed:', response.data);
