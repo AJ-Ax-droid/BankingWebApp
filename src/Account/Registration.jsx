@@ -27,7 +27,6 @@ export default function Registration() {
 
   const handleUserDataUpdate = (event) => {
     const { name, value } = event.target;
-
     setUserData({ ...UserData, [name]: value });
   };
 

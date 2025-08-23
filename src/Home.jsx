@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
-import Button from '@mui/joy/Button';
+import Button from '@mui/material/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -22,6 +22,11 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import InfoIcon from '@mui/icons-material/Info';
 import { useUser } from './UserContext';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout, ThemeSwitcher } from '@toolpad/core/DashboardLayout';
 import {
@@ -263,10 +268,7 @@ function Home(props) {
   const AddNewAccount = () => {
     // Logic to add a new account
     console.log('Add New Account Clicked');
-    // You can open a dialog or redirect to a new account creation page
-    return <CreateNewAccount />;
-    <CreateNewAccount />;
-
+    setOpenDialog(true);
   };
   const handleCurrentAccountDetailsChange = (accountId) => {
     // Logic to handle current account details change
@@ -441,6 +443,10 @@ function Home(props) {
   const demoWindow = window !== undefined ? window() : undefined;
 
   const [session, setSession] = React.useState(CurrentAccountDetail);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
 
   const authentication = React.useMemo(() => {
@@ -462,7 +468,6 @@ function Home(props) {
   console.log('Current Account:', currentAccount);
 
   return (
-    // Remove this provider when copying and pasting into your project.
      <div>
     {UserAccountDetails === null || UserAccountDetails === undefined || UserAccountDetails.length === 0 ? (
       <div>
@@ -485,7 +490,7 @@ function Home(props) {
         authentication={authentication}
         session={CurrentAccountDetail}
       >
-        {/* preview-start */}
+        
         <DashboardLayout
           slots={{
             toolbarActions: CustomToolbarActions,
@@ -494,9 +499,20 @@ function Home(props) {
         >
           <DemoPageContent pathname={pathname} />
         </DashboardLayout>
-        {/* preview-end */}
       </AppProvider>
-
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Create Account</DialogTitle>
+        <DialogContent>
+          {/* <DialogContentText>
+            
+          </DialogContentText> */}
+          <CreateNewAccount />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          
+        </DialogActions>
+      </Dialog>
     </DemoProvider>
     )}
     </div>
