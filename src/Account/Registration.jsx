@@ -56,6 +56,8 @@ export default function Registration() {
         panNo: UserData.PanNumber,
         account_Type: UserData.AccountType,
         accountCreatedOn: now,
+        firstName: UserData.FirstName,
+        lastName: UserData.LastName,
       },
       userLoginDetails: {
         userName: UserData.UserName,
@@ -67,7 +69,6 @@ export default function Registration() {
     axios.post(`${config.apiBaseUrl}/api/User`, registrationPayload)
       .then(response => {
         console.log('Registration successful:', response.data);
-        // alert('Registration successful!');
         navigate('/LoginPage'); // Redirect to login page after successful registration
       })
       .catch(error => {
@@ -99,8 +100,8 @@ export default function Registration() {
             <TextField value={UserData.ConfirmPassword} onChange={handleUserDataUpdate} type='password' name="ConfirmPassword" id="standard-basic" label="ConfirmPassword" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
-            <TextField value={UserData.Email} onChange={handleUserDataUpdate} name="Email" id="standard-basic" label="Email" variant="standard" />
-             <TextField value={UserData.PhoneNumber} onChange={handleUserDataUpdate} name="PhoneNumber" id="standard-basic" label="Phone Number" variant="standard" />
+            <TextField value={UserData.Email} onChange={handleUserDataUpdate} type='email' name="Email" id="standard-basic" label="Email" variant="standard" />
+             <TextField value={UserData.PhoneNumber} onChange={handleUserDataUpdate} type='number' name="PhoneNumber" id="standard-basic" label="Phone Number" variant="standard" />
              <TextField value={UserData.PanNumber} onChange={handleUserDataUpdate} name="PanNumber" id="standard-basic" label="PanNumber" variant="standard" />
         </Stack>
       <Stack direction="row" spacing={2}>
