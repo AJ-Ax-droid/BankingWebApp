@@ -18,6 +18,7 @@ import config from '../config';
 import { useUser } from '../UserContext'; // Assuming you have a UserContext for user data
 import AlertSnackBar from '../CommonUtils/AlertSnackbar';
 import LinearProgress from '@mui/joy/LinearProgress';
+import QRScanner from '../CommonUtils/QRScanner';
 import '../CSS/utility.css';
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -38,6 +39,7 @@ export default function MakeDebitTransaction() {
   const { user, currentAccount } = useUser(); // Assuming you have a UserContext for user data
   const [isLoading, setIsLoading] = React.useState(false);
   const [isAccouverifiedcolour, setIsAccouverifiedColor] = React.useState('primary');
+  const [qrScannerVisible, setQrScannerVisible] = React.useState(false);
   const [DebitTransactiondetails, setDebitTransactionDetails] = React.useState({
     isReceiverAccountVerifiedBMB: false,
     receiverAccountNo: "",
@@ -130,6 +132,10 @@ export default function MakeDebitTransaction() {
         setIsLoading(false);
       });
   };
+  
+  if (qrScannerVisible) {
+    return <QRScanner />;
+  }
 
 
   return (
@@ -219,7 +225,7 @@ export default function MakeDebitTransaction() {
           role={undefined}
           variant="contained"
           tabIndex={-1}
-          // onClick={handleSendMoney}
+          onClick={() => setQrScannerVisible(true)}
           disabled={isLoading}
           startIcon={<PaymentIcon />}
         >
