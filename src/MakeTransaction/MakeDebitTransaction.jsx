@@ -40,6 +40,7 @@ export default function MakeDebitTransaction() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isAccouverifiedcolour, setIsAccouverifiedColor] = React.useState('primary');
   const [qrScannerVisible, setQrScannerVisible] = React.useState(false);
+  const [qrData, setQrData] = React.useState("No QR detected");
   const [DebitTransactiondetails, setDebitTransactionDetails] = React.useState({
     isReceiverAccountVerifiedBMB: false,
     receiverAccountNo: "",
@@ -132,9 +133,35 @@ export default function MakeDebitTransaction() {
         setIsLoading(false);
       });
   };
-  
+  const handleQRScan = (data) => {
+    setQrData(data);
+    setQrScannerVisible(false);
+  };
+  React.useEffect(() => {
+
+    function parseUPI(qrString) {
+  const url = new URL(qrString);
+  const params = Object.fromEntries(url.searchParams.entries());
+  return params;
+}
+if (qrData === "No QR detected") return;
+const parsedData = parseUPI(qrData);
+if (parsedData) {
+  console.log('Parsed UPI Data:', parsedData.pa);
+}
+
+  }, [qrData]);
+
   if (qrScannerVisible) {
-    return <QRScanner />;
+    return (
+      <div className="centered-container">
+
+      <Box className="Box-PaperBg">
+        <QRScanner onScan={handleQRScan} />
+        {qrData && <p>Detected QR: {qrData}</p>}
+      </Box>
+      </div>
+    );
   }
 
 
@@ -142,6 +169,7 @@ export default function MakeDebitTransaction() {
     <div className="centered-container">
     <Box className="Box-PaperBg">
       {snackbar.open && <AlertSnackBar message={snackbar.message} type={snackbar.type} />}
+      {qrData && <p>Detected QR: {qrData}</p>}
           <TextField
             id="ReceiverAccountNo"
             label="Enter Receiver Account No"

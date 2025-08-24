@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr";
+import '../CSS/utility.css';
 
-export default function QRScanner() {
+
+const QRScanner = ({ onScan }) => {
   const videoRef = useRef(null);
   const [qrData, setQrData] = useState("No QR detected");
 
@@ -24,6 +26,7 @@ export default function QRScanner() {
           const code = jsQR(imageData.data, canvas.width, canvas.height);
           if (code) {
             setQrData(code.data);
+            if (onScan) onScan(code.data); // parent component ko callback
           }
         }
         requestAnimationFrame(tick);
@@ -32,13 +35,13 @@ export default function QRScanner() {
     };
 
     startCamera();
-  }, []);
+  }, [onScan]);
 
   return (
     <div>
-      <h1>QR Scanner</h1>
-      <video ref={videoRef} style={{ width: "300px", border: "1px solid black" }} />
-      <p>Detected QR: {qrData}</p>
+      <video ref={videoRef} style={{ width: "30vw", height: "auto", border: "1px solid black" }} />
     </div>
   );
-}
+};
+
+export default QRScanner;

@@ -9,11 +9,17 @@ import { styled } from '@mui/material/styles';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios';
 import config from '../config';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { useUser } from '../UserContext'; // Assuming you have a UserContext for user data
 import AlertSnackBar from '../CommonUtils/AlertSnackbar';
 import LinearProgress from '@mui/joy/LinearProgress';
 import { Snackbar } from '@mui/material';
 import { Input, InputAdornment } from '@mui/material';
+import QRGenerator from '../CommonUtils/QRGenerator';
 
 
 const VisuallyHiddenInput = styled('input')({
@@ -34,6 +40,7 @@ export default function MakeCreditTransaction() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [snackbar, setSnackbar] = React.useState({ open: false, message: '', type: '' });
   const { user, currentAccount } = useUser(); // Assuming you have a UserContext for user data
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   const CreditTransactiondetails = {
     accountNO: currentAccount.accountNo || "string",
@@ -44,6 +51,9 @@ export default function MakeCreditTransaction() {
     transactionDate: new Date().toISOString(),
     transactionBy: user?.firstName + " " + user?.lastName || "string",
     transactionStatus: "Pending"
+  };
+  const handleQRGenerator = () => {
+    setOpenDialog(true);
   };
 
   const handleCreditAmountChange = (event) => {
@@ -82,11 +92,25 @@ export default function MakeCreditTransaction() {
         setIsLoading(false);
       });
   };
+    const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   return (
     
     <div className="centered-container">
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Scan QR Code To Pay</DialogTitle>
+        <DialogContent>
+          <QRGenerator />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          
+        </DialogActions>
+      </Dialog>
     <Box className="Box-PaperBg">
+      
        {snackbar.open && <AlertSnackBar message={snackbar.message} type={snackbar.type} />}
           <TextField
             id="CreditTransactionUserName"
@@ -139,6 +163,18 @@ export default function MakeCreditTransaction() {
           startIcon={<AddIcon />}
         >
           Add Money
+        </Button>
+        <Button
+          sx={{ mt: 2, width: '60%' }}
+          component="label"
+          variant="outlined"
+          color="primary"
+          onClick={handleQRGenerator}
+          role={undefined}
+          tabIndex={-1}
+          startIcon={<AddIcon />}
+        >
+          Receive Payment from QR
         </Button>
         {isLoading && <LinearProgress sx={{ width: '100%', backgroundColor: 'transparent' }} />}
       </Box>
