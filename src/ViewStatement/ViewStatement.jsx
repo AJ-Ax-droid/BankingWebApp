@@ -36,9 +36,10 @@ function CustomToolbar() {
 // Mock columns and rows for DataGrid
 const columns = [
   { field: 'transactionDate', headerName: 'Date', flex: 1, align: 'center', headerAlign: 'center' },
-  { field: 'transactionID', headerName: 'Naration', flex: 1, align: 'center', headerAlign: 'center' },
-  // { field: 'transactionID', headerName: 'Transaction ID', flex: 1, align: 'center', headerAlign: 'center' },
+  // { field: 'transactionID', headerName: 'Naration', flex: 1, align: 'center', headerAlign: 'center' },
+  { field: 'transactionID', headerName: 'Transaction ID', flex: 1, align: 'center', headerAlign: 'center' },
   { field: 'transactionBy', headerName: 'Transaction By', flex: 1, align: 'center', headerAlign: 'center' },
+  { field: 'transactionTo', headerName: 'Transaction To', flex: 1, align: 'center', headerAlign: 'center' },
   { field: 'transactionType', headerName: 'Transaction Type', flex: 1, align: 'center', headerAlign: 'center' },
   { field: 'amountTrasacted', headerName: 'Amount', flex: 1, align: 'center', headerAlign: 'center' },
   { field: 'clearBalance', headerName: 'Clear Balance', flex: 1, align: 'center', headerAlign: 'center' },
