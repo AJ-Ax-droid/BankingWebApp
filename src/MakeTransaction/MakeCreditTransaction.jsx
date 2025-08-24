@@ -20,6 +20,7 @@ import LinearProgress from '@mui/joy/LinearProgress';
 import { Snackbar } from '@mui/material';
 import { Input, InputAdornment } from '@mui/material';
 import QRGenerator from '../CommonUtils/QRGenerator';
+import QrCodeIcon from '@mui/icons-material/QrCode';
 
 
 const VisuallyHiddenInput = styled('input')({
@@ -172,7 +173,7 @@ export default function MakeCreditTransaction() {
           onClick={handleQRGenerator}
           role={undefined}
           tabIndex={-1}
-          startIcon={<AddIcon />}
+          startIcon={<QrCodeIcon />}
         >
           Receive Payment from QR
         </Button>
