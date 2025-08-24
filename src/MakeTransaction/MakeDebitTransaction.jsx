@@ -43,6 +43,7 @@ export default function MakeDebitTransaction() {
   const [qrData, setQrData] = React.useState("No QR detected");
   const [DebitTransactiondetails, setDebitTransactionDetails] = React.useState({
     isReceiverAccountVerifiedBMB: false,
+    isQRCodeScanned: false,
     receiverAccountNo: "",
     receiverAccountHolderName: "",
     senderUserID: user?.userID || 0,
@@ -52,6 +53,7 @@ export default function MakeDebitTransaction() {
   });
 
   const handleDebitAmountChange = (event) => {
+    
     setDebitTransactionDetails({
       ...DebitTransactiondetails,
       amountToSend: event.target.value
@@ -161,6 +163,7 @@ export default function MakeDebitTransaction() {
         amountToSend:  0,
         receiverAccountNo: parsedData.pa || '',
         receiverAccountHolderName: parsedData.pn || '',
+        isQRCodeScanned: true,
         isReceiverAccountVerifiedBMB: parsedData.isBMBPayment=="true" || parsedData.isBMBPayment==true
       });
     }
@@ -229,7 +232,8 @@ export default function MakeDebitTransaction() {
         <TextField
           required
           id="DebitAmount"
-          type='number'
+          type='text' 
+          inputMode='decimal'
           label="Enter Debit Amount"
           variant="standard"
           fullWidth
@@ -240,9 +244,22 @@ export default function MakeDebitTransaction() {
                   <CurrencyRupeeIcon />
                 </InputAdornment>
               ),
+              inputProps:{maxLength: 10}
             },
           }}
-          onChange={handleDebitAmountChange}
+          // onChange={handleDebitAmountChange}
+          onChange={(e)=>{
+            const onlyNums = e.target.value.replace(/[^0-9.]/g, '');
+            const parts = onlyNums.split('.');
+            if(parts.length > 2){
+              // More than one decimal point, ignore the input
+              return;
+            }
+            setDebitTransactionDetails({
+              ...DebitTransactiondetails,
+              amountToSend: onlyNums
+            });
+          }}
           value={DebitTransactiondetails.amountToSend}
         />
 
