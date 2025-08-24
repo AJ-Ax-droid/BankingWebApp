@@ -13,7 +13,8 @@
     max-height: 90vh;
     padding: 2vh;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: 'background.default';
+    /* elevation: 24; */
     border-radius: 1.5vh;
     box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -26,12 +27,12 @@
     box-sizing: border-box;
 }
 .Box-PaperBg>*:hover{ 
-    box-shadow: 0 1vh 2vh rgba(37, 27, 228, 0.3);
+    box-shadow: 0 0 3vh 2vh rgba(37, 27, 228, 0.3);
     transform: translateY(-0.5vh);
     transition: all 0.3s ease;
 }
 .Box-PaperBg:hover{
-    box-shadow: 0 1vh 2vh rgba(2, 2, 245, 0.3);
+    box-shadow: 0 0 1vh 2vh rgba(2, 2, 245, 0.3);
     transform: translateY(-0.5vh);
     transition: all 0.3s ease;
 }
