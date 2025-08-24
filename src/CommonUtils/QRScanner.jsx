@@ -19,8 +19,13 @@ const QRScanner = ({ onScan }) => {
 
       const tick = () => {
         if (videoRef.current.readyState === videoRef.current.HAVE_ENOUGH_DATA) {
-          canvas.height = videoRef.current.videoHeight;
-          canvas.width = videoRef.current.videoWidth;
+          const videoWidth = videoRef.current.videoWidth;
+          const videoHeight = videoRef.current.videoHeight;
+          const maxWidth = window.innerWidth;
+          const maxHeight = window.innerHeight;
+          const scale = Math.min(maxWidth / videoWidth, maxHeight / videoHeight);
+          canvas.height = videoHeight * scale;
+          canvas.width = videoWidth * scale;
           context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
           const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
           const code = jsQR(imageData.data, canvas.width, canvas.height);
@@ -39,7 +44,7 @@ const QRScanner = ({ onScan }) => {
 
   return (
     <div>
-      <video ref={videoRef} style={{ width: "30vw", height: "auto", border: "1px solid black" }} />
+      <video ref={videoRef} style={{ width: "100%", height: "auto", border: "1px solid black" }} />
     </div>
   );
 };
