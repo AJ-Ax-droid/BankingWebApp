@@ -9,8 +9,6 @@ export default function QRGenerator() {
 
   return (
     <div className="p-4 text-center">
-      <h1 className="text-xl font-bold mb-4">QR Code Generator</h1>
-
       <QRCodeCanvas
         value={upiData}      // yaha apna data ya UPI link do
         size={256}           // QR size
