@@ -64,12 +64,12 @@ const NAVIGATION = [
     children: [
       {
         segment: 'MakeCreditTransaction',
-        title: 'Make Credit Transaction',
+        title: 'Add/Receive Payment',
         icon: <AddIcon />,
       },
       {
         segment: 'MakeDebitTransaction',
-        title: 'Make Debit Transaction',
+        title: 'Pay to Someone',
         icon: <RemoveIcon />,
       },
     ],
