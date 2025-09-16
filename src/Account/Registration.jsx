@@ -34,6 +34,7 @@ export default function Registration() {
 
   const handleSubmit =  (event) => {
     event.preventDefault();
+    console.log(' Form submitted with data:');
     // Here you can handle the registration logic, e.g., sending data to an API
     if (UserData.Password !== UserData.ConfirmPassword) {
       setSnackbar({ open: true, message: 'Passwords do not match!', type: 'error' });
