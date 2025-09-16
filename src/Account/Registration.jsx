@@ -98,7 +98,7 @@ export default function Registration() {
 
     
        <Box
-      component="form"
+      
       
       sx={{ mr: 2, width: 600, height: 500, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 3, p: 4, boxShadow: 3, borderRadius: 3, bgcolor: 'background.paper' }}
       noValidate
@@ -119,7 +119,7 @@ export default function Registration() {
             <TextField value={UserData.ConfirmPassword} slotProps={{ input: {inputProps:{maxLength: 20}} }} required onChange={handleUserDataUpdate} type='password' name="ConfirmPassword" id="standard-basic" label="ConfirmPassword" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
-            <TextField value={UserData.Email}slotProps={{ input: {inputProps:{maxLength: 20}} }} required onChange={handleUserDataUpdate} type='email' name="Email" id="standard-basic" label="Email" variant="standard" />
+            <TextField value={UserData.Email}slotProps={{ input: {inputProps:{maxLength: 50}} }} required onChange={handleUserDataUpdate} type='email' name="Email" id="standard-basic" label="Email" variant="standard" />
              <TextField value={UserData.PhoneNumber}slotProps={{ input: {inputProps:{maxLength: 10}} }} required onChange={handleUserDataUpdate} type='text' inputMode='numeric' name="PhoneNumber" id="standard-basic" label="Phone Number" variant="standard" />
              <TextField value={UserData.PanNumber} slotProps={{ input: {inputProps:{maxLength: 10}} }} required onChange={handleUserDataUpdate} name="PanNumber" id="standard-basic" label="PanNumber" variant="standard" />
         </Stack>
