@@ -36,10 +36,15 @@ export default function Registration() {
     event.preventDefault();
     // Here you can handle the registration logic, e.g., sending data to an API
     if (UserData.Password !== UserData.ConfirmPassword) {
-      alert('Passwords do not match!');
+      setSnackbar({ open: true, message: 'Passwords do not match!', type: 'error' });
       return; // Stop submission if passwords don't match
     }
-    if (snackbar.open) 
+    const containsNonNumeric = /[^0-9]/.test(UserData.PhoneNumber);
+    if (containsNonNumeric) {
+      setSnackbar({ open: true, message: 'Phone number must contain only numeric characters!', type: 'error' });
+      return;
+    }
+    if (snackbar.open) {
     {
       setSnackbar({ open: false, message: '', type: '' });
     }
@@ -92,7 +97,7 @@ export default function Registration() {
      // For debugging purposes, you can log the payload
     console.log('Registration Payload:', registrationPayload);
   };
-
+  }
   return (
     
 
@@ -110,13 +115,13 @@ export default function Registration() {
 
         <Stack direction="row" spacing={2}>
              <TextField value={UserData.FirstName} slotProps={{ input: {inputProps:{maxLength: 10}} }} required onChange={handleUserDataUpdate} name="FirstName" id="standard-basic" label="FirstName" variant="standard" />
-             <TextField value={UserData.MiddleName} slotProps={{input:{inputProps:{maxLength: 10}}}} required onChange={handleUserDataUpdate} name="MiddleName" id="standard-basic" label="MiddleName" variant="standard" />
+             <TextField value={UserData.MiddleName} slotProps={{input:{inputProps:{maxLength: 10}}}}  onChange={handleUserDataUpdate} name="MiddleName" id="standard-basic" label="MiddleName" variant="standard" />
             <TextField value={UserData.LastName} slotProps={{input:{inputProps:{maxLength: 10}}}} required onChange={handleUserDataUpdate} name="LastName" id="standard-basic" label="LastName" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
              <TextField value={UserData.UserName} slotProps={{ input: {inputProps:{maxLength: 15}} }} required onChange={handleUserDataUpdate}  name="UserName" id="standard-basic" label="UserName" variant="standard" />
              <TextField value={UserData.Password}slotProps={{ input: {inputProps:{maxLength: 20}} }} required onChange={handleUserDataUpdate} type='password' name="Password" id="standard-basic" label="Password" variant="standard" />
-            <TextField value={UserData.ConfirmPassword} slotProps={{ input: {inputProps:{maxLength: 20}} }} required onChange={handleUserDataUpdate} type='password' name="ConfirmPassword" id="standard-basic" label="ConfirmPassword" variant="standard" />
+            <TextField value={UserData.ConfirmPassword} slotProps={{ input: {inputProps:{maxLength: 20}} }}  required onChange={handleUserDataUpdate} type='password' name="ConfirmPassword" id="standard-basic" label="ConfirmPassword" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
             <TextField value={UserData.Email}slotProps={{ input: {inputProps:{maxLength: 50}} }} required onChange={handleUserDataUpdate} type='email' name="Email" id="standard-basic" label="Email" variant="standard" />
