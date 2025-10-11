@@ -148,8 +148,8 @@ axios.get(`${config.apiBaseUrl}/api/UserLoginDetail/VerifyLogin?username=${usern
            disabled={isLoading}
            // onClick={() => navigate('/Home')}
           // onClick={handleLogin}
-           sx={{ mt: 1 /* margin top */ }}>
-            {isLoading ? 'Logging in...' : 'Log in'}
+           sx={{ mt: 1  }}>
+            {isLoading ? 'please wait arranging your Grahpravesh...' : 'Log in'}
             </Button>
         {isLoading && <LinearProgress />}
         </form>
