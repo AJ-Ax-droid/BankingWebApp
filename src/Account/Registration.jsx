@@ -97,6 +97,7 @@ export default function Registration() {
         if (response.status === 200) {
           console.log('Registration successful:', response.data);
           setSnackbar({ open: true, message: 'Redirecting to login page for UserName: ' + response.data.userName, type: 'success' });
+          alert('Registration successful! Please login with username: ' + response.data.userName);
           await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a delay
           navigate('/LoginPage'); // Redirect to login page after successful registration
           setIsLoading(false);
