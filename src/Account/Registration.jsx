@@ -123,12 +123,22 @@ export default function Registration() {
   };
   return (
     <Box
-    
+    sx={{
+      backgroundImage: `url(${Moneyflowdownblackbg})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            height: '100vh',
+            width: '100vw',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+    }}
       // backgroundImage:`url(${Moneyflowdownblackbg})`,
     
     >
 
-      <img
+      {/* <img
     src={Moneyflowdownblackbg}
     alt="background"
     style={{
@@ -142,8 +152,8 @@ export default function Registration() {
       zIndex: 1,
         pointerEvents: 'none', // to make sure it doesn't block any interactions
     }}
-    />
-      <Box
+    /> */}
+      {/* <Box
       sx={{
         position: 'absolute',
         top: 0,
@@ -154,9 +164,10 @@ export default function Registration() {
         zIndex: 1,
         pointerEvents: 'none',
       }}
-      />
+      /> */}
     <Box
     className="Box-PaperBg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 2, borderRadius: 2, boxShadow: 3, maxWidth: '90%', margin: 'auto', mt: 5,
+    
     }}
   >
   

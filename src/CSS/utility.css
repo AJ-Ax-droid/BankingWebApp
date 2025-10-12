@@ -31,7 +31,7 @@
     transform: translateY(-0.5vh);
     transition: all 0.3s ease;
     background-color: 'background.default';
-    background-color: ;
+
     opacity: 2;
 }
 .Box-PaperBg:hover{
@@ -39,7 +39,13 @@
     transform: translateY(-0.5vh);
     transition: all 0.3s ease;
 }
+.TextField .MuiInput-underline:before {
+  border-bottom: 2px solid #ffffff; /* default (inactive) underline */
+}
 
+.TextField .MuiInput-underline:after {
+  border-bottom: 2px solid #fafafa; /* active/focused underline */
+}
 .TextField input{
     width: 100%;
     max-width: 100%;
@@ -48,7 +54,7 @@
     text-decoration-color: blue;
     text-decoration-line: solid;
     font-size: 1.3rem;
-    color: #000000; 
+    color: #f1f1f1; 
     text-decoration-style: solid;
 }
 .TextField label{
@@ -59,7 +65,7 @@
     text-decoration-color: blue;
     text-decoration-line: solid;
     font-size: 1.2rem;
-    color: #0025f9; 
+    color: #ffffff; 
     text-decoration-style: solid;
 }
 .Button{
@@ -102,4 +108,11 @@
     height: 100vh; /* Full viewport height */
     width: 100%;  /* Full viewport width */
     box-sizing: border-box;
+}
+.blankbghovereffect:hover {
+    box-shadow: 0 0 3vh 2vh rgba(37, 27, 228, 0.3);
+    transform: translateY(-0.5vh);
+    transition: all 0.3s ease;
+    background-color: 'background.default';
+    opacity: 2;
 }
