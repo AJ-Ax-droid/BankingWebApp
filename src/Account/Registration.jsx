@@ -174,7 +174,8 @@ export default function Registration() {
       
       
       {snackbar.open && <AlertSnackBar message={snackbar.message} type={snackbar.type} />}
-      <form onSubmit={handleSubmit} style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'auto' }}>
+      <form onSubmit={handleSubmit} style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'auto',
+       }}>
         {/* <Stack direction="column" spacing={2}> */}
 <Stack direction="column" spacing={2}>
         <Stack className='Stack-RowSpacing' direction="row" spacing={2}>
