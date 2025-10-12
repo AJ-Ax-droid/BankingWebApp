@@ -5,10 +5,11 @@ import Stack from '@mui/material/Stack';
 import { Button } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Moneyflowdownblackbg from '../images/Moneyflowdownblackbg.gif';
 import LinearProgress from '@mui/joy/LinearProgress';
 import config from '../config'; // Assuming you have a config file for API base URL
 import AlertSnackBar from '../CommonUtils/AlertSnackbar';
+import '../CSS/utility.css';
 
 export default function Registration() {
   const [UserData, setUserData] = React.useState({
@@ -120,36 +121,74 @@ export default function Registration() {
     console.log('Registration Payload:', registrationPayload);
     console.log(response);
   };
-
   return (
-    <Box className="Box-PaperBg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 2, borderRadius: 2, boxShadow: 3, maxWidth: '90%', margin: 'auto', mt: 5 }}>
+    <Box
+    
+      // backgroundImage:`url(${Moneyflowdownblackbg})`,
+    
+    >
+
+      <img
+    src={Moneyflowdownblackbg}
+    alt="background"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover', // ya 'cover' depending on need
+      opacity: 0.5,         // sirf image ke liye
+      zIndex: 1,
+        pointerEvents: 'none', // to make sure it doesn't block any interactions
+    }}
+    />
+      <Box
+      sx={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(255,255,255,0.2)', // sirf overlay transparent
+        zIndex: 1,
+        pointerEvents: 'none',
+      }}
+      />
+    <Box
+    className="Box-PaperBg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 2, borderRadius: 2, boxShadow: 3, maxWidth: '90%', margin: 'auto', mt: 5,
+    }}
+  >
+  
+      
+      
       {snackbar.open && <AlertSnackBar message={snackbar.message} type={snackbar.type} />}
       <form onSubmit={handleSubmit} style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'auto' }}>
         {/* <Stack direction="column" spacing={2}> */}
 <Stack direction="column" spacing={2}>
         <Stack className='Stack-RowSpacing' direction="row" spacing={2}>
-          <TextField value={UserData.FirstName} slotProps={{ input: { inputProps: { maxLength: 10 } } }} required onChange={handleUserDataUpdate} name="FirstName" id="standard-basic-FirstName" label="FirstName" variant="standard" />
-          <TextField value={UserData.MiddleName} slotProps={{ input: { inputProps: { maxLength: 10 } } }} onChange={handleUserDataUpdate} name="MiddleName" id="standard-basic-MiddleName" label="MiddleName" variant="standard" />
-          <TextField value={UserData.LastName} slotProps={{ input: { inputProps: { maxLength: 10 } } }} required onChange={handleUserDataUpdate} name="LastName" id="standard-basic-LastName" label="LastName" variant="standard" />
+          <TextField  className="TextField" value={UserData.FirstName} slotProps={{ input: { inputProps: { maxLength: 20 } } }} required onChange={handleUserDataUpdate} name="FirstName" id="standard-basic-FirstName" label="FirstName" variant="standard" />
+          <TextField className="TextField" value={UserData.MiddleName} slotProps={{ input: { inputProps: { maxLength: 10 } } }} onChange={handleUserDataUpdate} name="MiddleName" id="standard-basic-MiddleName" label="MiddleName" variant="standard" />
+          <TextField className="TextField" value={UserData.LastName} slotProps={{ input: { inputProps: { maxLength: 20 } } }} required onChange={handleUserDataUpdate} name="LastName" id="standard-basic-LastName" label="LastName" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
-          <TextField value={UserData.UserName} slotProps={{ input: { inputProps: { maxLength: 15 } } }} required onChange={handleUserDataUpdate} name="UserName" id="standard-basic-UserName" label="UserName" variant="standard" />
-          <TextField value={UserData.Password} slotProps={{ input: { inputProps: { maxLength: 20 } } }} required onChange={handleUserDataUpdate} type='password' name="Password" id="standard-basic-Password" label="Password" variant="standard" />
-          <TextField value={UserData.ConfirmPassword} slotProps={{ input: { inputProps: { maxLength: 20 } } }} required onChange={handleUserDataUpdate} type='password' name="ConfirmPassword" id="standard-basic-ConfirmPassword" label="ConfirmPassword" variant="standard" />
+          <TextField  className="TextField"  value={UserData.UserName} slotProps={{ input: { inputProps: { maxLength: 15 } } }} required onChange={handleUserDataUpdate} name="UserName" id="standard-basic-UserName" label="UserName" variant="standard" />
+          <TextField  className="TextField"  value={UserData.Password} slotProps={{ input: { inputProps: { maxLength: 20 } } }} required onChange={handleUserDataUpdate} type='password' name="Password" id="standard-basic-Password" label="Password" variant="standard" />
+          <TextField  className="TextField"  value={UserData.ConfirmPassword} slotProps={{ input: { inputProps: { maxLength: 20 } } }} required onChange={handleUserDataUpdate} type='password' name="ConfirmPassword" id="standard-basic-ConfirmPassword" label="ConfirmPassword" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
-          <TextField value={UserData.Email} slotProps={{ input: { inputProps: { maxLength: 50 } } }} required onChange={handleUserDataUpdate} type='email' name="Email" id="standard-basic-Email" label="Email" variant="standard" />
-          <TextField value={UserData.PhoneNumber} slotProps={{ input: { inputProps: { maxLength: 10 } } }} required onChange={handleUserDataUpdate} type='text' inputMode='numeric' name="PhoneNumber" id="standard-basic-PhoneNumber" label="Phone Number" variant="standard" />
-          <TextField value={UserData.PanNumber} slotProps={{ input: { inputProps: { maxLength: 10 } } }} required onChange={handleUserDataUpdate} name="PanNumber" id="standard-basic-PanNumber" label="PanNumber" variant="standard" />
+          <TextField  className="TextField"  value={UserData.Email} slotProps={{ input: { inputProps: { maxLength: 50 } } }} required onChange={handleUserDataUpdate} type='email' name="Email" id="standard-basic-Email" label="Email" variant="standard" />
+          <TextField  className="TextField"  value={UserData.PhoneNumber} slotProps={{ input: { inputProps: { maxLength: 10 } } }} required onChange={handleUserDataUpdate} type='text' inputMode='numeric' name="PhoneNumber" id="standard-basic-PhoneNumber" label="Phone Number" variant="standard" />
+          <TextField  className="TextField"  value={UserData.PanNumber} slotProps={{ input: { inputProps: { maxLength: 10 } } }} required onChange={handleUserDataUpdate} name="PanNumber" id="standard-basic-PanNumber" label="PanNumber" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={2}>
-          <TextField value={UserData.CurrentAddress} slotProps={{ input: { inputProps: { maxLength: 40 } } }} required onChange={handleUserDataUpdate} name="CurrentAddress" id="standard-basic-CurrentAddress" label="CurrentAddress" variant="standard" />
-          <TextField value={UserData.PermanentAddress} slotProps={{ input: { inputProps: { maxLength: 40 } } }} onChange={handleUserDataUpdate} name="PermanentAddress" id="standard-basic-PermanentAddress" label="PermanentAddress" variant="standard" />
-          <TextField value={UserData.AccountType} slotProps={{ input: { inputProps: { maxLength: 10 } } }} required onChange={handleUserDataUpdate} name="AccountType" id="standard-basic-AccountType" label="Account Type" variant="standard" />
+          <TextField className="TextField" value={UserData.CurrentAddress} slotProps={{ input: { inputProps: { maxLength: 40 } } }} required onChange={handleUserDataUpdate} name="CurrentAddress" id="standard-basic-CurrentAddress" label="CurrentAddress" variant="standard" />
+          <TextField className="TextField" value={UserData.PermanentAddress} slotProps={{ input: { inputProps: { maxLength: 40 } } }} onChange={handleUserDataUpdate} name="PermanentAddress" id="standard-basic-PermanentAddress" label="PermanentAddress" variant="standard" />
+          <TextField className="TextField" value={UserData.AccountType} slotProps={{ input: { inputProps: { maxLength: 10 } } }} required onChange={handleUserDataUpdate} name="AccountType" id="standard-basic-AccountType" label="Account Type" variant="standard" />
         </Stack>
         <Stack direction="row" spacing={3}>
 
-          <Button disabled={isLoading} type='submit' variant="contained" color="primary" style={{ marginTop: '16px', width: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', }} >
+          <Button className='Button' disabled={isLoading} type='submit' variant="contained" color="primary" style={{ marginTop: '16px', width: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', color:'black' }} >
             {isLoading ? 'Everyone is using this as it is free please wait for sometime...' : 'Register with BMB'}
           </Button>
          {!isLoading && <Button variant="text" onClick={() => navigate('/LoginPage')}>Already have an account? Login</Button>}
@@ -157,6 +196,7 @@ export default function Registration() {
            {isLoading && <LinearProgress />}
           </Stack>
       </form>
+    
     </Box>
-  );
+    </Box>);
 }

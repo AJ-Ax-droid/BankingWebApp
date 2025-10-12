@@ -30,12 +30,63 @@
     box-shadow: 0 0 3vh 2vh rgba(37, 27, 228, 0.3);
     transform: translateY(-0.5vh);
     transition: all 0.3s ease;
+    background-color: 'background.default';
+    background-color: ;
+    opacity: 2;
 }
 .Box-PaperBg:hover{
     box-shadow: 0 0 1vh 2vh rgba(2, 2, 245, 0.3);
     transform: translateY(-0.5vh);
     transition: all 0.3s ease;
 }
+
+.TextField input{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    text-decoration-thickness: calc(1.5vh);
+    text-decoration-color: blue;
+    text-decoration-line: solid;
+    font-size: 1.3rem;
+    color: #000000; 
+    text-decoration-style: solid;
+}
+.TextField label{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    text-decoration-thickness: calc(1.5vh);
+    text-decoration-color: blue;
+    text-decoration-line: solid;
+    font-size: 1.2rem;
+    color: #0025f9; 
+    text-decoration-style: solid;
+}
+.Button{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 1.5vh;
+    box-sizing: border-box;
+    color: #f40101; 
+    box-shadow: 0 0.5vh 1vh rgba(38, 25, 177, 0.2);
+    text-decoration-style: solid;   
+    background-color: #f90000;
+}
+
+.Button span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000000;
+}
+
+.Button:hover{
+    box-shadow: 0 0 3vh 2vh rgba(37, 27, 228, 0.3);
+    transform: translateY(-0.5vh);
+    transition: all 0.3s ease;
+    /* background-color: #0011c2; */
+}
+
 @media (max-width: 768px) {
     .Box-PaperBg {
         width: 90vw;
