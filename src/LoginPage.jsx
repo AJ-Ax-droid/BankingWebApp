@@ -11,6 +11,8 @@ import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
 import App from './App';
 import { Routes, useNavigate, Route, Form } from 'react-router-dom';
 import axios from 'axios';
@@ -60,6 +62,9 @@ export default function LoginPage(props) {
   const [password, setPassword] = React.useState('');
   const { setUser, setToken, setUserRole, setUserId, setUserEmail, setUsername: setUsernameContext, setPassword: setPasswordContext } = useUser();
   const [isLoading, setIsLoading] = React.useState(false);
+     const [justify, setJustify] = React.useState('flex-start');
+     const [RoboValue, setRoboValue] = React.useState('Robot');
+     const [HumanValue, setHumanValue] = React.useState('Human');
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -91,6 +96,15 @@ export default function LoginPage(props) {
         alert("Invalid Credentials");
         setIsLoading(false);
       });
+  };
+  const handleRobotCheck = (e) => {
+    setJustify(e.target.value)
+    console.log("Robot check status:", e.target.value);
+    if(e.target.value == 'Robot'){
+      setRoboValue(HumanValue);
+      setHumanValue(RoboValue);
+      setJustify('Human')
+    }
   };
 
   return (
@@ -126,26 +140,26 @@ export default function LoginPage(props) {
             // backgroundColor:'Background.default',
             position: 'relative',
             zIndex: 2,
-            backgroundImage: `url(${BMBBuildingDark})`,
+            // backgroundImage: `url(${BMBBuildingDark})`,
             
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            // backgroundSize: 'contain',
+            // backgroundRepeat: 'no-repeat',
+            // backgroundPosition: 'center',
           }}
           variant="outlined"
         >
           <div>
-            <Typography level="h4" component="h1">
-              <b style={ { color:'white'}}>Welcome!</b>
+            <Typography sx={{justifyContent:'center', display:'flex', }} level="h1" component="h1">
+              <b style={ { color:'white'}}>Welcome</b>
             </Typography>
-            <Typography level="body-sm" style={ { color:'white'}}>Sign in to continue.</Typography>
           </div>
           <form onSubmit={handleLogin} style={{ width: '100%' }}>
             <FormControl>
-              <FormLabel style={ { color:'white'}}>User Name</FormLabel>
+              <FormLabel style={ {  fontWeight: 'bold', fontSize: '1.2rem', color:'white'}}>User Name</FormLabel>
               <Input
+              sx={{fontWeight:'bold',  fontSize: '1.3rem'}}
                 name="username"
-                placeholder="Enter your username"
+                placeholder="Enter your UserName"
                 required
                 autoFocus
                 value={username}
@@ -153,8 +167,9 @@ export default function LoginPage(props) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel style={ { color:'white'}}>Password</FormLabel>
+              <FormLabel style={ { fontWeight: 'bold', fontSize: '1.2rem', color:'white'}}>Password</FormLabel>
               <Input
+              sx={{fontWeight:'bold',  fontSize: '1.3rem'}}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -164,6 +179,77 @@ export default function LoginPage(props) {
                 type="password"
                 placeholder="password"
               />
+            </FormControl>
+            <FormControl>
+               <Typography id="segmented-controls-example" sx={{ fontWeight: 'lg', fontSize: 'sm' }}>
+                You are : </Typography>
+      <RadioGroup
+        orientation="horizontal"
+        aria-labelledby="segmented-controls-example"
+        name="justify"
+        value={justify}
+        onChange={handleRobotCheck}
+        sx={{
+          minHeight: 15,
+          width:'max-content',
+          padding: '4px',
+          borderRadius: '12px',
+          bgcolor: 'GrayText',
+          '--RadioGroup-gap': '4px',
+          '--Radio-actionRadius': '12px',
+        }}
+      >
+        
+          <Radio
+            key={HumanValue}
+            color="neutral"
+            value={HumanValue}
+            disableIcon
+            required
+            label={HumanValue}
+            variant="plain"
+            sx={{ px: 2, alignItems: 'center' }}
+            slotProps={{
+              action: ({ checked }) => ({
+                sx: {
+                  ...(checked && {
+                    bgcolor: 'background.surface',
+                    boxShadow: 'sm',
+                    '&:hover': {
+                      bgcolor: 'background.surface',
+                      borderRadius: '12px',
+                    },
+                  }),
+                },
+              }),
+            }}
+          />
+          <Radio
+            key={RoboValue}
+            color="neutral"
+            value={RoboValue}
+            disableIcon
+            label={RoboValue}
+            variant="plain"
+            sx={{ px: 2, alignItems: 'center' }}
+            slotProps={{
+              action: ({ checked }) => ({
+                sx: {
+                  ...(checked && {
+                    bgcolor: 'background.surface',
+                    boxShadow: 'sm',
+                    '&:hover': {
+                      bgcolor: 'background.surface',
+                      borderRadius: '12px',
+                    },
+                  }),
+                },
+              }),
+            }}
+          />
+        
+
+      </RadioGroup>
             </FormControl>
             <Button
               variant="solid"

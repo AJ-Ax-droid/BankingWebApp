@@ -472,6 +472,7 @@ function Home(props) {
           homeUrl: '/ViewBalance',
         }}
         theme={demoTheme}
+        
         window={demoWindow}
         authentication={authentication}
         session={CurrentAccountDetail}
